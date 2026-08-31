@@ -48,30 +48,42 @@ export default function HoshakshamApp() {
           <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-zinc-400 mt-0.5">Zen Mode: Only Inflows & Active Members Visible</p>
         </div>
 
-        {/* View Toggle */}
-        <div className="flex items-center bg-zinc-200/80 p-1 rounded-2xl shrink-0 self-start sm:self-auto">
-          <button
-            onClick={() => setActiveTab("dashboard")}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-              activeTab === "dashboard"
-                ? "bg-white text-zinc-900 shadow-sm"
-                : "text-zinc-600 hover:text-zinc-900"
-            }`}
+        {/* Actions & View Toggle */}
+        <div className="flex items-center gap-2 shrink-0 self-start sm:self-auto flex-wrap">
+          <a
+            href="https://spfolio.framer.ai/hosaksham-case-study"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-brand-primary/10 hover:bg-brand-primary text-brand-primary hover:text-white border border-brand-primary/20 transition-all shadow-sm group"
           >
-            <LayoutGrid className="w-3.5 h-3.5" />
-            <span>Dashboard</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("showcase")}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-              activeTab === "showcase"
-                ? "bg-white text-zinc-900 shadow-sm"
-                : "text-zinc-600 hover:text-zinc-900"
-            }`}
-          >
-            <ImageIcon className="w-3.5 h-3.5 text-brand-primary" />
-            <span>Showcase</span>
-          </button>
+            <span>Case Study</span>
+            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+
+          <div className="flex items-center bg-zinc-200/80 p-1 rounded-2xl">
+            <button
+              onClick={() => setActiveTab("dashboard")}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
+                activeTab === "dashboard"
+                  ? "bg-white text-zinc-900 shadow-sm"
+                  : "text-zinc-600 hover:text-zinc-900"
+              }`}
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>Dashboard</span>
+            </button>
+            <button
+              onClick={() => setActiveTab("showcase")}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
+                activeTab === "showcase"
+                  ? "bg-white text-zinc-900 shadow-sm"
+                  : "text-zinc-600 hover:text-zinc-900"
+              }`}
+            >
+              <ImageIcon className="w-3.5 h-3.5 text-brand-primary" />
+              <span>Showcase</span>
+            </button>
+          </div>
         </div>
       </div>
 

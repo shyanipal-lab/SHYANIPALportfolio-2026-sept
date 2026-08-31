@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowRight, Sparkles, Globe, Layout, Zap, Lock } from "lucide-react";
+import { ArrowRight, Sparkles, Globe, Layout, Zap, Lock, ArrowUpRight } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 import HoshakshamApp from "./HoshakshamApp";
@@ -30,7 +30,7 @@ const CASE_STUDIES = [
     category: "Fintech • SaaS • 0 → 1",
     role: "Founding Lead Designer",
     impact: "0 spreadsheets & 98% faster admin",
-    link: "/case-study/hoshaksham",
+    link: "https://spfolio.framer.ai/hosaksham-case-study",
     featured: false,
     component: <HoshakshamApp />,
     type: "web",
@@ -230,16 +230,30 @@ export default function Work() {
                     </div>
                   </div>
 
-                  <Link 
-                    to={project.link}
-                    className="group w-full md:w-auto inline-flex items-center justify-center gap-4 bg-zinc-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-brand-primary transition-all shadow-xl"
-                  >
-                    {project.id === "mercedes" && (
-                      <Lock className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white transition-colors" />
+                  <div>
+                    {project.link.startsWith("http") ? (
+                      <a 
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group w-full md:w-auto inline-flex items-center justify-center gap-4 bg-zinc-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-brand-primary transition-all shadow-xl"
+                      >
+                        <span>View Case Study</span>
+                        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      </a>
+                    ) : (
+                      <Link 
+                        to={project.link}
+                        className="group w-full md:w-auto inline-flex items-center justify-center gap-4 bg-zinc-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-brand-primary transition-all shadow-xl"
+                      >
+                        {project.id === "mercedes" && (
+                          <Lock className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white transition-colors" />
+                        )}
+                        <span>{project.id === "mercedes" ? "Unlock Case Study" : "View Case Study"}</span>
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                      </Link>
                     )}
-                    <span>{project.id === "mercedes" ? "Unlock Case Study" : "View Case Study"}</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                  </Link>
+                  </div>
                 </div>
               </div>
             </motion.div>

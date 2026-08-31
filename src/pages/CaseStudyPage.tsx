@@ -25,6 +25,7 @@ interface CaseStudy {
   heroImage?: string;
   heroComponent?: React.ReactNode;
   keyInsight: string;
+  externalLink?: string;
   sections: Section[];
   content: React.ReactNode;
 }
@@ -36,6 +37,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     category: "SaaS · Service Management · 0 → 1",
     duration: "3 Months",
     year: "2024",
+    externalLink: "https://spfolio.framer.ai/hosaksham-case-study",
     heroComponent: (
       <div className="w-full h-full bg-zinc-50 flex items-center justify-center p-8 overflow-hidden">
         <div className="w-full max-w-4xl aspect-video bg-white rounded-[48px] shadow-2xl border border-zinc-100 overflow-hidden relative">
@@ -1244,7 +1246,18 @@ export default function CaseStudyPage() {
           Back to Work
         </Link>
         <div className="flex items-center gap-3">
-          <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">Current View —</span>
+          {study.externalLink && (
+            <a
+              href={study.externalLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-primary/15 hover:bg-brand-primary text-brand-primary hover:text-white border border-brand-primary/30 text-[10px] font-bold uppercase tracking-widest transition-all"
+            >
+              <span>Framer Link</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
+          )}
+          <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-500 hidden sm:inline">Current View —</span>
           <span className="text-[10px] font-black uppercase tracking-widest text-white">{study.title}</span>
         </div>
       </header>
@@ -1266,9 +1279,22 @@ export default function CaseStudyPage() {
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter mb-4 leading-[1.1] text-white">
                 {study.title}
               </h1>
-              <p className="text-zinc-400 text-lg md:text-xl font-medium max-w-2xl leading-relaxed">
+              <p className="text-zinc-400 text-lg md:text-xl font-medium max-w-2xl leading-relaxed mb-6">
                 {study.subtitle}
               </p>
+              {study.externalLink && (
+                <div className="flex items-center justify-center md:justify-start gap-4">
+                  <a
+                    href={study.externalLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-brand-primary hover:bg-blue-600 text-white font-bold uppercase tracking-widest text-xs transition-all shadow-xl shadow-brand-primary/20 group"
+                  >
+                    <span>Read Case Study on Framer</span>
+                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+              )}
             </div>
 
             {/* Strategic Key Insight Panel on the right */}
@@ -1350,6 +1376,20 @@ export default function CaseStudyPage() {
                     <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Categorization</span>
                     <p className="text-sm font-bold text-white mt-1">{study.category}</p>
                   </div>
+                  {study.externalLink && (
+                    <div className="pt-2 border-t border-zinc-800/80">
+                      <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest block mb-2">Live Framer Link</span>
+                      <a
+                        href={study.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-primary hover:underline group"
+                      >
+                        <span>spfolio.framer.ai</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
 

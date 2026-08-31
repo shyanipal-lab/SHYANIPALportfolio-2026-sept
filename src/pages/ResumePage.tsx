@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
-import { ArrowLeft, Download, Mail, Linkedin, MapPin, Phone } from "lucide-react";
+import { ArrowLeft, Download, Mail, Linkedin, MapPin, Phone, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
@@ -31,6 +31,7 @@ const RESUME_DATA = {
       company: "HoShaksham, Remote",
       role: "Product designer (UI/UX)",
       period: "June 2024 - Aug 2024",
+      caseStudyLink: "https://spfolio.framer.ai/hosaksham-case-study",
       points: [
         "Designed mobile and web apps enabling service providers to manage offerings, subscribers, and workflows.",
         "Owned the full design lifecycle from discovery to launch.",
@@ -203,9 +204,22 @@ export default function ResumePage() {
                   <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-brand-primary" />
                   
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
-                    <h3 className="text-2xl font-black uppercase tracking-tighter">
-                      {exp.company}
-                    </h3>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="text-2xl font-black uppercase tracking-tighter">
+                        {exp.company}
+                      </h3>
+                      {exp.caseStudyLink && (
+                        <a
+                          href={exp.caseStudyLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-primary/10 hover:bg-brand-primary text-brand-primary hover:text-white border border-brand-primary/20 text-[10px] font-bold uppercase tracking-widest transition-all group"
+                        >
+                          <span>Case Study</span>
+                          <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </a>
+                      )}
+                    </div>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 bg-zinc-50 px-3 py-1 rounded-full">
                       {exp.period}
                     </span>
