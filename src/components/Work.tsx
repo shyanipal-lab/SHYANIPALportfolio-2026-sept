@@ -16,7 +16,7 @@ const CASE_STUDIES = [
     category: "Fintech • SaaS • Case Study",
     role: "End-to-End Designer",
     impact: "93% reduction in filing time",
-    link: "/case-study/fyle",
+    link: "https://heyshyani.design/fyle-case-study.html",
     featured: true,
     component: <FyleReimbursementApp />,
     type: "web",

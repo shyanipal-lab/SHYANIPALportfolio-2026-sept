@@ -53,6 +53,7 @@ const RESUME_DATA = {
       company: "Fyle, Bengaluru",
       role: "Product designer",
       period: "August 2019 - November 2020",
+      caseStudyLink: "https://heyshyani.design/fyle-case-study.html",
       points: [
         "Designed features that enabled employees to claim over £395+ monthly reimbursements efficiently.",
         "Built and improved components within the design system, improving cross-platform consistency.",
