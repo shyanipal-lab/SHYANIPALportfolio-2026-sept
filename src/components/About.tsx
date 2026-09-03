@@ -3,7 +3,8 @@ import { User, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import VideoPlayer from "./ui/video-player";
-import profileImg from "../assets/images/regenerated_image_1780031625396.png";
+import profileImg from "../assets/images/regenerated_image_1788451049371.jpg";
+import { FeaturesSectionWithBentoGrid } from "@/components/ui/feature-section-with-bento-grid";
 
 const ABOUT_IMAGES = [
   { id: 1, src: profileImg, alt: "Shyani Pal" },
@@ -200,6 +201,21 @@ export default function About() {
             </motion.div>
           </div>
         </div>
+
+        {/* Bento Grid Feature Breakdown */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8 }}
+          className="mt-28 pt-20 border-t border-zinc-100"
+        >
+          <FeaturesSectionWithBentoGrid
+            title="Design Journey, Impact & Studio Culture"
+            description="A high-level view of 5+ years across enterprise fintech scale at Fyle, in-car mobility systems at Mercedes-Benz, creative experiments, and studio culture."
+            videoSrc={videoSrc}
+          />
+        </motion.div>
       </div>
     </section>
   );

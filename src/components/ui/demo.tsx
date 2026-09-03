@@ -388,11 +388,28 @@ function BentoDemo() {
 }
 
 import VideoPlayer from "@/components/ui/video-player";
+import { SocialIcons } from "@/components/ui/social-icons";
 
 const VideoPlayerDemo = () => {
   return <VideoPlayer src="https://videos.pexels.com/video-files/30333849/13003128_2560_1440_25fps.mp4" />;
 };
 
+export function SocialIconsDemo() {
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center bg-neutral-900 w-full">
+      <div className="flex flex-col items-center gap-12">
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-semibold tracking-tight text-white">Connect with me</h1>
+          <p className="text-sm text-neutral-400">Hover over the icons below</p>
+        </div>
+
+        <SocialIcons />
+      </div>
+    </main>
+  );
+}
+
 export { BentoDemo, VideoPlayerDemo };
+export default SocialIconsDemo;
 
 

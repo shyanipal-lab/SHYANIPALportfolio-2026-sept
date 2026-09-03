@@ -4,6 +4,7 @@ import Work from "../components/Work";
 import CreativeSection from "../components/CreativeSection";
 import Fun from "../components/Fun";
 import Footer from "../components/Footer";
+import ContentSection from "../components/ui/content-block";
 import { motion, useScroll, useSpring } from "motion/react";
 
 export default function Home() {
@@ -25,6 +26,14 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        
+        {/* Content Section / Smart Editor Component before Case Studies */}
+        <section className="py-12 bg-white">
+          <div className="container mx-auto px-6 max-w-7xl">
+            <ContentSection />
+          </div>
+        </section>
+
         <Work />
         <CreativeSection />
         <Fun />

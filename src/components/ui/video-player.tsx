@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Pause, Volume2, Volume1, VolumeX, Upload, RotateCcw, Film, Check } from "lucide-react";
+import { Play, Pause, Volume2, Volume1, VolumeX, Upload, RotateCcw, Film, Check, Maximize } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -50,6 +50,7 @@ export interface VideoPlayerProps {
   className?: string;
   videoClassName?: string;
   allowUpload?: boolean;
+  showTopBar?: boolean;
   onVideoUpload?: (url: string, file: File) => void;
   onResetVideo?: () => void;
   isCustomVideo?: boolean;
@@ -61,6 +62,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   className, 
   videoClassName,
   allowUpload = true,
+  showTopBar = true,
   onVideoUpload,
   onResetVideo,
   isCustomVideo = false,
@@ -233,12 +235,23 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       {/* Video Element */}
       <video
         ref={videoRef}
-        className={cn("w-full h-full object-cover cursor-pointer", videoClassName)}
+        className={cn("w-full h-full object-contain cursor-pointer mx-auto", videoClassName)}
         onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={() => {
+          if (videoRef.current) {
+            setDuration(videoRef.current.duration);
+            videoRef.current.volume = volume;
+            videoRef.current.muted = isMuted;
+            videoRef.current.playbackRate = playbackSpeed;
+          }
+        }}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
         src={src}
         onClick={togglePlay}
         playsInline
         loop
+        preload="auto"
       />
 
       {/* Drag and Drop Active Overlay */}
@@ -260,7 +273,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       </AnimatePresence>
 
       {/* Top Floating Action Bar (Upload & Reset) */}
-      {allowUpload && (
+      {allowUpload && showTopBar && (
         <div 
           className={cn(
             "absolute top-3 left-3 right-3 z-30 flex items-center justify-between pointer-events-auto transition-opacity duration-300",
@@ -303,7 +316,37 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         </div>
       )}
 
-      {/* Success Notification Toast */}
+      {/* Discreet floating upload action if top bar is disabled */}
+      {allowUpload && !showTopBar && (
+        <div 
+          className={cn(
+            "absolute top-3 right-3 z-30 flex items-center gap-1.5 transition-opacity duration-300",
+            showControls || isCustomVideo ? "opacity-90 hover:opacity-100" : "opacity-0 group-hover/player:opacity-80 hover:!opacity-100"
+          )}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {isCustomVideo && onResetVideo && (
+            <button
+              type="button"
+              onClick={onResetVideo}
+              className="inline-flex items-center gap-1 bg-black/70 hover:bg-black/90 backdrop-blur-md text-zinc-300 hover:text-white px-2.5 py-1 rounded-full border border-white/10 text-[10px] font-medium transition-all cursor-pointer shadow-md"
+              title="Reset to default video"
+            >
+              <RotateCcw className="w-2.5 h-2.5" />
+              <span>Reset</span>
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={triggerUploadDialog}
+            className="inline-flex items-center gap-1.5 bg-black/70 hover:bg-zinc-900 backdrop-blur-md text-white hover:text-brand-primary px-2.5 py-1 rounded-full border border-white/15 text-[10px] font-medium transition-all cursor-pointer shadow-md"
+            title="Upload your video file"
+          >
+            <Upload className="w-3 h-3 text-brand-primary" />
+            <span>{isCustomVideo ? "Change Video" : "Upload Video"}</span>
+          </button>
+        </div>
+      )}
       <AnimatePresence>
         {uploadSuccessToast && (
           <motion.div
@@ -404,6 +447,36 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
               </div>
 
               <div className="flex items-center gap-1">
+                {allowUpload && (
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button
+                      onClick={triggerUploadDialog}
+                      variant="ghost"
+                      size="sm"
+                      className="text-white hover:bg-white/10 hover:text-brand-primary text-[10px] h-6 px-2 rounded-md flex items-center gap-1 border border-white/15 cursor-pointer"
+                      title="Upload your video into this player"
+                    >
+                      <Upload className="w-3 h-3 text-brand-primary" />
+                      <span className="font-semibold">{isCustomVideo ? "Replace" : "Upload Video"}</span>
+                    </Button>
+                  </motion.div>
+                )}
+
+                {isCustomVideo && onResetVideo && (
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button
+                      onClick={onResetVideo}
+                      variant="ghost"
+                      size="sm"
+                      className="text-zinc-300 hover:bg-white/10 hover:text-white text-[10px] h-6 px-2 rounded-md flex items-center gap-1 border border-white/10 cursor-pointer"
+                      title="Reset to default video"
+                    >
+                      <RotateCcw className="w-2.5 h-2.5" />
+                      <span>Reset</span>
+                    </Button>
+                  </motion.div>
+                )}
+
                 {[0.5, 1, 1.5, 2].map((speed) => (
                   <motion.div
                     whileHover={{ scale: 1.1 }}
@@ -423,6 +496,26 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                     </Button>
                   </motion.div>
                 ))}
+
+                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                  <Button
+                    onClick={() => {
+                      if (videoRef.current) {
+                        if (document.fullscreenElement) {
+                          document.exitFullscreen().catch(() => {});
+                        } else {
+                          videoRef.current.requestFullscreen().catch(() => {});
+                        }
+                      }
+                    }}
+                    variant="ghost"
+                    size="icon"
+                    className="text-white hover:bg-white/10 hover:text-white h-6 w-6 rounded-md ml-0.5"
+                    title="Toggle Fullscreen"
+                  >
+                    <Maximize className="w-3.5 h-3.5" />
+                  </Button>
+                </motion.div>
               </div>
             </div>
           </motion.div>

@@ -13,8 +13,10 @@ import {
   Image as ImageIcon,
   X,
   Sparkles,
-  LayoutGrid
+  LayoutGrid,
+  Smartphone
 } from "lucide-react";
+import NotionMobileOnboarding from "./NotionMobileOnboarding";
 
 const TRANSACTIONS = [
   { id: 1, name: "Yoga Flow - Monthly", amount: "+₹ 4,500", date: "Today, 10:30 AM", status: "Received", icon: "🧘" },
@@ -23,7 +25,7 @@ const TRANSACTIONS = [
 ];
 
 export default function HoshakshamApp() {
-  const [activeTab, setActiveTab] = useState<"dashboard" | "showcase">("dashboard");
+  const [activeTab, setActiveTab] = useState<"onboarding" | "dashboard" | "showcase">("onboarding");
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,7 +40,7 @@ export default function HoshakshamApp() {
   return (
     <div className="w-full h-full bg-[#F8F9FB] text-zinc-900 font-sans flex flex-col overflow-y-auto select-none relative p-6 md:p-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -62,8 +64,19 @@ export default function HoshakshamApp() {
 
           <div className="flex items-center bg-zinc-200/80 p-1 rounded-2xl">
             <button
+              onClick={() => setActiveTab("onboarding")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                activeTab === "onboarding"
+                  ? "bg-brand-primary text-zinc-950 shadow-sm"
+                  : "text-zinc-600 hover:text-zinc-900"
+              }`}
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Onboarding Flow</span>
+            </button>
+            <button
               onClick={() => setActiveTab("dashboard")}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 activeTab === "dashboard"
                   ? "bg-white text-zinc-900 shadow-sm"
                   : "text-zinc-600 hover:text-zinc-900"
@@ -74,20 +87,24 @@ export default function HoshakshamApp() {
             </button>
             <button
               onClick={() => setActiveTab("showcase")}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 activeTab === "showcase"
                   ? "bg-white text-zinc-900 shadow-sm"
                   : "text-zinc-600 hover:text-zinc-900"
               }`}
             >
               <ImageIcon className="w-3.5 h-3.5 text-brand-primary" />
-              <span>Showcase</span>
+              <span>Uploads</span>
             </button>
           </div>
         </div>
       </div>
 
-      {activeTab === "dashboard" ? (
+      {activeTab === "onboarding" ? (
+        <div className="flex-1 flex flex-col">
+          <NotionMobileOnboarding />
+        </div>
+      ) : activeTab === "dashboard" ? (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
           {/* Left Column: Main Stats */}
           <div className="lg:col-span-7 space-y-6">
@@ -144,21 +161,22 @@ export default function HoshakshamApp() {
               </motion.div>
             </div>
 
-            {/* In-card Image Placeholder Widget */}
+            {/* In-card Notion Animation Callout */}
             <div className="bg-gradient-to-r from-zinc-900 to-zinc-950 text-white rounded-[28px] p-6 border border-zinc-800 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-brand-primary/20 border border-brand-primary/30 flex items-center justify-center text-brand-primary shrink-0">
-                  <Sparkles className="w-5 h-5" />
+                  <Smartphone className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-white">Product Media</p>
+                  <p className="text-xs font-bold text-white">Notion-Style Mobile Onboarding</p>
+                  <p className="text-[10px] text-zinc-400">Interactive block creation & auto-onboarding flow</p>
                 </div>
               </div>
               <button 
-                onClick={() => setActiveTab("showcase")}
-                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold uppercase tracking-wider shrink-0 transition-colors"
+                onClick={() => setActiveTab("onboarding")}
+                className="px-4 py-2 bg-brand-primary hover:bg-brand-primary-light text-zinc-950 rounded-xl text-xs font-black uppercase tracking-wider shrink-0 transition-all shadow-md active:scale-95"
               >
-                Open Media
+                Launch Flow
               </button>
             </div>
           </div>
@@ -211,8 +229,12 @@ export default function HoshakshamApp() {
                   ))}
                 </div>
 
-                <button className="mt-8 w-full py-3.5 bg-white/5 hover:bg-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-zinc-400 transition-all">
-                  View All Transactions
+                <button 
+                  onClick={() => setActiveTab("onboarding")}
+                  className="mt-8 w-full py-3.5 bg-white/5 hover:bg-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-zinc-400 transition-all flex items-center justify-center gap-2"
+                >
+                  <span>Explore Flow Animation</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </motion.div>
@@ -220,7 +242,7 @@ export default function HoshakshamApp() {
         </div>
       ) : (
         /* Image Showcase Placeholder Tab */
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col space-y-4">
           <input 
             type="file" 
             ref={fileInputRef} 
@@ -247,19 +269,31 @@ export default function HoshakshamApp() {
                 </button>
               </div>
             ) : (
-              <div className="text-center space-y-4">
-                {/* Default Vector Icon */}
-                <div className="w-20 h-20 rounded-3xl bg-zinc-800/80 border border-zinc-700/80 flex items-center justify-center mx-auto text-brand-primary shadow-xl group-hover:scale-105 transition-transform">
-                  <ImageIcon className="w-10 h-10" />
+              <div className="text-center space-y-4 max-w-md">
+                <div className="w-16 h-16 rounded-3xl bg-zinc-800/80 border border-zinc-700/80 flex items-center justify-center mx-auto text-brand-primary shadow-xl group-hover:scale-105 transition-transform">
+                  <ImageIcon className="w-8 h-8" />
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-white mb-1">Custom Media Upload</h4>
+                  <p className="text-xs text-zinc-400">
+                    Upload your high-res design exports or switch back to the interactive Notion Onboarding Animation.
+                  </p>
                 </div>
 
-                <div className="flex items-center justify-center pt-2">
+                <div className="flex items-center justify-center gap-3 pt-2">
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="inline-flex items-center gap-2 bg-brand-primary hover:bg-brand-primary-light text-zinc-950 font-black px-6 py-3 rounded-2xl text-xs uppercase tracking-wider transition-all shadow-lg active:scale-95"
+                    className="inline-flex items-center gap-2 bg-brand-primary hover:bg-brand-primary-light text-zinc-950 font-black px-6 py-2.5 rounded-2xl text-xs uppercase tracking-wider transition-all shadow-lg active:scale-95"
                   >
                     <Upload className="w-4 h-4" />
-                    <span>Upload</span>
+                    <span>Upload Image</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab("onboarding")}
+                    className="inline-flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-white font-bold px-5 py-2.5 rounded-2xl text-xs uppercase tracking-wider transition-all shadow-md active:scale-95"
+                  >
+                    <Smartphone className="w-4 h-4 text-brand-primary" />
+                    <span>Play Animation</span>
                   </button>
                 </div>
               </div>

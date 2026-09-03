@@ -19,7 +19,7 @@ import {
 import illustrationAsset1 from "@/assets/images/regenerated_image_1784822006302.jpg";
 import illustrationAsset2 from "@/assets/images/regenerated_image_1784822153539.jpg";
 import illustrationAsset3 from "@/assets/images/design-vibe-only/src/assets/images/regenerated_image_1780031428336.png";
-import illustrationAsset4 from "@/assets/images/regenerated_image_1780031625396.png";
+import illustrationAsset4 from "@/assets/images/regenerated_image_1788451049371.jpg";
 import flow10Lottie from "@/assets/lottie/flow10.json";
 import emailLottie from "@/assets/lottie/email.json";
 
@@ -74,13 +74,13 @@ const DEFAULT_GALLERY: GalleryItem[] = [
   },
   {
     id: "item-3",
-    title: "Geometric Monolith",
-    category: "3D & Render",
-    subtitle: "Abstract Visual Experiment",
-    description: "A study in caustic lighting, reflective glass materials, and spatial balance for modern digital products.",
+    title: "Having Fun at Office",
+    category: "Illustration",
+    subtitle: "Saving My Chair • Studio Life",
+    description: "Having fun at office, saving my chair — candid studio snapshot capturing the day-to-day creative energy, product sprints, and team culture.",
     type: "image",
     src: illustrationAsset2,
-    tags: ["3D Render", "Glassmorphism", "Lighting"]
+    tags: ["Studio Life", "Culture", "Design Life"]
   },
   {
     id: "item-4",

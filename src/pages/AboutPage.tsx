@@ -2,8 +2,9 @@ import { motion } from "motion/react";
 import Footer from "../components/Footer";
 import { ArrowLeft, Sparkles, User, Target, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
-import profileImg from "../assets/images/regenerated_image_1780031625396.png";
+import profileImg from "../assets/images/regenerated_image_1788451049371.jpg";
 import HowItWorks, { Step } from "../components/ui/how-it-works";
+import { FeaturesSectionWithBentoGrid } from "@/components/ui/feature-section-with-bento-grid";
 
 const evolutionSteps: Step[] = [
   {
@@ -185,6 +186,16 @@ export default function AboutPage() {
           <div className="relative bg-white/70 backdrop-blur-sm rounded-[40px] border border-zinc-200/80 shadow-sm p-4 sm:p-8 overflow-hidden">
             <HowItWorks features={evolutionSteps} className="bg-transparent dark:bg-transparent px-2 sm:px-4" />
           </div>
+        </div>
+      </section>
+
+      {/* Capabilities & Studio Culture Bento Grid Section */}
+      <section className="py-24 md:py-36 bg-white overflow-hidden">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <FeaturesSectionWithBentoGrid
+            title="Design Journey, Impact & Studio Culture"
+            description="A comprehensive view of 5+ years across enterprise fintech scale at Fyle, in-car mobility systems at Mercedes-Benz, creative experiments, and studio culture."
+          />
         </div>
       </section>
 
